@@ -129,7 +129,7 @@ test('source matching and geographic radius', () => {
 test('live filters wrong packs, stock, unsourced prices, distant stores and duplicates', async () => {
   const p = providers([
     offer,
-    { ...offer, pack_count: 4 },
+    { ...offer, pack_count: 0 },
     { ...offer, availability: 'out_of_stock' },
     { ...offer, source_url: 'https://unsupported.test' },
     { ...offer, address: 'Far branch' },

@@ -14,7 +14,8 @@ import {
   mapSearchQuery,
   selectStreetAddress,
 } from '../headless-maps.ts';
-import { WorkflowError, rank, liveProviders } from '../workflow.ts';
+import { researchClients } from '../research.ts';
+import { WorkflowError, rank } from '../workflow.ts';
 import type { Store } from '../workflow.ts';
 
 test('location extraction requires coordinates from the address result', () => {
@@ -228,11 +229,11 @@ test('a shelf-only result cannot outrank a known complete pickup cost', () => {
   assert.equal(results[0].total, 18.32);
   assert.equal(results[1].total, null);
 });
-test('missing OpenAI key fails before launching any browser', async () => {
+test('missing OpenAI key fails before any research call', () => {
   const old = process.env.OPENAI_API_KEY;
   delete process.env.OPENAI_API_KEY;
   try {
-    await assert.rejects(liveProviders(), /OPENAI_API_KEY/);
+    assert.throws(() => researchClients(), /OPENAI_API_KEY/);
   } finally {
     if (old !== undefined) process.env.OPENAI_API_KEY = old;
   }

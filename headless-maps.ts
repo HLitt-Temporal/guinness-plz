@@ -8,8 +8,9 @@
   ambiguous, asks for a CAPTCHA, or does not show one clear route, this throws.
   The workflow then says the distance is unavailable. It does not invent miles.
 
-  createHeadlessMaps() is opened once per live search and closed when that
-  search finishes, success or failure.
+  createHeadlessMaps() is opened for one map activity and closed when that
+  activity finishes, success or failure. Each activity gets its own browser
+  so a retry does not reuse a page from a crashed attempt.
 */
 
 import { chromium } from 'playwright';
